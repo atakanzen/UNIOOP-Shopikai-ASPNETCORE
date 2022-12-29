@@ -33,10 +33,10 @@
                     <p class="card-text">
                         You can fill your categories with products you choose.
                     </p>
-                    <a href="#" class="btn btn-primary w-100">Let's do it</a>
+                    <a asp-page="/Categories/Index" class="btn btn-primary w-100">Let's do it</a>
                 </div>
                 <div class="card-footer text-muted  text-center">
-                    10 Categories
+                    @Model.CategoriesCount Categories
                 </div>
             </div>
         </div>
@@ -52,10 +52,10 @@
                     <p class="card-text">
                         It's pretty much all love and hate here.
                     </p>
-                    <a href="#" class="btn btn-primary w-100">Take me there!</a>
+                    <a asp-page="/Orders/Index" class="btn btn-primary w-100">Take me there!</a>
                 </div>
                 <div class="card-footer text-muted text-center">
-                    165 Orders
+                    @Model.OrdersCount Orders
                 </div>
             </div>
         </div>
@@ -70,10 +70,10 @@
                     <p class="card-text">
                         Psst! These can be helpful for budgeting for the future.
                     </p>
-                    <a href="#" class="btn btn-primary w-100">Show me</a>
+                    <a asp-page="/Receipts/Index" class="btn btn-primary w-100">Show me</a>
                 </div>
                 <div class="card-footer text-muted text-center">
-                    165 Receipts
+                    @Model.ReceiptsCount Receipts
                 </div>
             </div>
         </div>
