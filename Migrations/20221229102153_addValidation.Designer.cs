@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RazorPagesProduct.Data;
 
@@ -10,9 +11,11 @@ using RazorPagesProduct.Data;
 namespace ShopApp.Migrations
 {
     [DbContext(typeof(RazorPagesProductContext))]
-    partial class RazorPagesProductContextModelSnapshot : ModelSnapshot
+    [Migration("20221229102153_addValidation")]
+    partial class addValidation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.1");
@@ -25,6 +28,7 @@ namespace ShopApp.Migrations
 
                     b.Property<string>("Category")
                         .IsRequired()
+                        .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("HasDiscount")

@@ -11,67 +11,75 @@ using ShopApp.Models;
 
 namespace ShopApp.Pages.Products
 {
-    public class EditModel : PageModel
+  public class EditModel : PageModel
+  {
+    private readonly RazorPagesProduct.Data.RazorPagesProductContext _context;
+
+    public EditModel(RazorPagesProduct.Data.RazorPagesProductContext context)
     {
-        private readonly RazorPagesProduct.Data.RazorPagesProductContext _context;
-
-        public EditModel(RazorPagesProduct.Data.RazorPagesProductContext context)
-        {
-            _context = context;
-        }
-
-        [BindProperty]
-        public Product Product { get; set; } = default!;
-
-        public async Task<IActionResult> OnGetAsync(int? id)
-        {
-            if (id == null || _context.Product == null)
-            {
-                return NotFound();
-            }
-
-            var product =  await _context.Product.FirstOrDefaultAsync(m => m.Id == id);
-            if (product == null)
-            {
-                return NotFound();
-            }
-            Product = product;
-            return Page();
-        }
-
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
-        {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
-
-            _context.Attach(Product).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ProductExists(Product.Id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return RedirectToPage("./Index");
-        }
-
-        private bool ProductExists(int id)
-        {
-          return (_context.Product?.Any(e => e.Id == id)).GetValueOrDefault();
-        }
+      _context = context;
     }
+
+    [BindProperty]
+    public Product Product { get; set; } = default!;
+
+    public SelectList? Categories { get; set; }
+
+    public async Task<IActionResult> OnGetAsync(int? id)
+    {
+      if (id == null || _context.Product == null)
+      {
+        return NotFound();
+      }
+
+      var product = await _context.Product.FirstOrDefaultAsync(m => m.Id == id);
+      if (product == null)
+      {
+        return NotFound();
+      }
+
+      IQueryable<string> categoryQuery = from p in _context.Product
+                                         orderby p.Category
+                                         select p.Category;
+
+      Categories = new SelectList(await categoryQuery.Distinct().ToListAsync());
+      Product = product;
+      return Page();
+    }
+
+    // To protect from overposting attacks, enable the specific properties you want to bind to.
+    // For more details, see https://aka.ms/RazorPagesCRUD.
+    public async Task<IActionResult> OnPostAsync()
+    {
+      if (!ModelState.IsValid)
+      {
+        return Page();
+      }
+
+      _context.Attach(Product).State = EntityState.Modified;
+
+      try
+      {
+        await _context.SaveChangesAsync();
+      }
+      catch (DbUpdateConcurrencyException)
+      {
+        if (!ProductExists(Product.Id))
+        {
+          return NotFound();
+        }
+        else
+        {
+          throw;
+        }
+      }
+
+      return RedirectToPage("./Index");
+    }
+
+    private bool ProductExists(int id)
+    {
+      return (_context.Product?.Any(e => e.Id == id)).GetValueOrDefault();
+    }
+  }
 }

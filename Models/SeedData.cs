@@ -27,7 +27,8 @@ public static class SeedData
           Category = "Tops",
           Price = 24.99M,
           Stock = 5000,
-          ReleasedDate = DateTime.Parse("2022-1-15")
+          ReleaseDate = DateTime.Parse("2022-1-15"),
+          HasDiscount = true
         },
         new Product
         {
@@ -35,7 +36,8 @@ public static class SeedData
           Category = "Tops",
           Price = 27.99M,
           Stock = 3500,
-          ReleasedDate = DateTime.Parse("2022-1-15")
+          ReleaseDate = DateTime.Parse("2022-1-15"),
+          HasDiscount = false
         },
         new Product
         {
@@ -43,7 +45,8 @@ public static class SeedData
           Category = "Jackets & Coats",
           Price = 159.99M,
           Stock = 1500,
-          ReleasedDate = DateTime.Parse("2022-12-26")
+          ReleaseDate = DateTime.Parse("2022-12-26"),
+          HasDiscount = false
         },
         new Product
         {
@@ -51,7 +54,8 @@ public static class SeedData
           Category = "Shoes",
           Price = 2950M,
           Stock = 25,
-          ReleasedDate = DateTime.Parse("2022-3-3")
+          ReleaseDate = DateTime.Parse("2022-3-3"),
+          HasDiscount = true
         },
         new Product
         {
@@ -59,7 +63,8 @@ public static class SeedData
           Category = "Shoes",
           Price = 5950M,
           Stock = 5,
-          ReleasedDate = DateTime.Parse("2022-3-3")
+          ReleaseDate = DateTime.Parse("2022-3-3"),
+          HasDiscount = false
         }
       );
 

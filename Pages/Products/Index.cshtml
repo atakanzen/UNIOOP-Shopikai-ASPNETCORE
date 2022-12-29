@@ -10,20 +10,24 @@
 <p>
     <a asp-page="Create">Create New</a>
 </p>
-<form>
-    <p>
-        <select asp-for="Category" asp-items="Model.Categories">
+<form class="row row-cols-lg-auto mb-3 g-3 align-items-center">
+    <div class="col-12">
+        <select id="categorySelect" class="form-select" asp-for="Category" asp-items="Model.Categories">
             <option value="">All</option>
         </select>
-    </p>
-    <p>
-        Title: <input type="text" asp-for="SearchString">
-        <input type="submit" value="Search">
-        @if (!string.IsNullOrEmpty(Model.SearchString) || !string.IsNullOrEmpty(Model.Category))
-        {
+    </div>
+    <div class="col-12">
+        <input placeholder="Title" id="titleSearch" type="text" class="form-control" asp-for="SearchString">
+    </div>
+    <div class="col-12">
+        <input type="submit" class="btn btn-primary" value="Search">
+    </div>
+    @if (!string.IsNullOrEmpty(Model.SearchString) || !string.IsNullOrEmpty(Model.Category))
+    {
+        <div class="col-12">
             <a asp-page="Index">Clear Search</a>
-        }
-    </p>
+        </div>
+    }
 </form>
 <table class="table">
     <thead>
@@ -35,13 +39,16 @@
                 @Html.DisplayNameFor(model => model.Product[0].Category)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Product[0].ReleasedDate)
+                @Html.DisplayNameFor(model => model.Product[0].ReleaseDate)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Product[0].Price)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Product[0].Stock)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].HasDiscount)
             </th>
             <th></th>
         </tr>
@@ -57,13 +64,16 @@
                     @Html.DisplayFor(modelItem => item.Category)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ReleasedDate)
+                    @Html.DisplayFor(modelItem => item.ReleaseDate)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Price)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Stock)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HasDiscount)
                 </td>
                 <td>
                     <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |

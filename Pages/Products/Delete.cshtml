@@ -25,10 +25,10 @@
             @Html.DisplayFor(model => model.Product.Category)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Product.ReleasedDate)
+            @Html.DisplayNameFor(model => model.Product.ReleaseDate)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Product.ReleasedDate)
+            @Html.DisplayFor(model => model.Product.ReleaseDate)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Product.Price)
@@ -41,6 +41,12 @@
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Product.Stock)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Product.HasDiscount)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Product.HasDiscount)
         </dd>
     </dl>
 
