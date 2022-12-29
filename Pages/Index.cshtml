@@ -4,8 +4,78 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Hello World!</h1>
-    <p>Welcome to the shop application</p>
-    <p>Current time is @DateTime.Now</p>
+<div class="container">
+    <div class="row my-5">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header">Products</div>
+                <div class="card-body">
+                    <h5 class="card-title">
+                        Manage your products
+                    </h5>
+                    <p class="card-text">
+                        Here you can create, update, delete, or display your products!
+                    </p>
+                    <a asp-page="/Products/Index" class="btn btn-primary w-100">Go!</a>
+                </div>
+                <div class="card-footer text-muted  text-center">
+                    @Model.ProductsCount Products
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header">Categories</div>
+                <div class="card-body">
+                    <h5 class="card-title">
+                        It won't be fun without categories!
+                    </h5>
+                    <p class="card-text">
+                        You can fill your categories with products you choose.
+                    </p>
+                    <a href="#" class="btn btn-primary w-100">Let's do it</a>
+                </div>
+                <div class="card-footer text-muted  text-center">
+                    10 Categories
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row my-5">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header">Orders</div>
+                <div class="card-body">
+                    <h5 class="card-title">
+                        Here resides your orders.
+                    </h5>
+                    <p class="card-text">
+                        It's pretty much all love and hate here.
+                    </p>
+                    <a href="#" class="btn btn-primary w-100">Take me there!</a>
+                </div>
+                <div class="card-footer text-muted text-center">
+                    165 Orders
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header">Receipts</div>
+                <div class="card-body">
+                    <h5 class="card-title">
+                        The proof. Receipts.
+                    </h5>
+                    <p class="card-text">
+                        Psst! These can be helpful for budgeting for the future.
+                    </p>
+                    <a href="#" class="btn btn-primary w-100">Show me</a>
+                </div>
+                <div class="card-footer text-muted text-center">
+                    165 Receipts
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

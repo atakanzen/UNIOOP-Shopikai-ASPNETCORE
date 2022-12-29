@@ -7,8 +7,7 @@ public class Product
 {
   public int Id { get; set; }
 
-  [StringLength(100, MinimumLength = 3)]
-  [Required]
+  [Required, StringLength(100, MinimumLength = 3)]
   public string Title { get; set; }
 
   [Required]
@@ -16,21 +15,15 @@ public class Product
 
 
   // Types decimal, float, int, DateTime are required by default.
-  [Display(Name = "Release Date")]
-  [DataType(DataType.Date)]
-  [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+  [Display(Name = "Release Date"), DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
   public DateTime ReleaseDate { get; set; }
 
-  [Column(TypeName = "decimal(18, 2)")]
-  [DataType(DataType.Currency)]
-  [Range(1, 999999)]
+  [Column(TypeName = "decimal(18, 2)"), DataType(DataType.Currency), Range(1, 999999)]
   public decimal Price { get; set; }
 
   [Range(1, 999999)]
   public int Stock { get; set; }
 
-  [Required]
-  [Display(Name = "Has Discount")]
+  [Required, Display(Name = "Has Discount")]
   public bool HasDiscount { get; set; } = false;
-
 }
