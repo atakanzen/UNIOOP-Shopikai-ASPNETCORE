@@ -5,16 +5,16 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using RazorPagesProduct.Data;
 using ShopApp.Models;
+using Shopikai.Data;
 
 namespace ShopApp.Pages.Orders
 {
     public class CreateModel : PageModel
     {
-        private readonly RazorPagesProduct.Data.RazorPagesOrderContext _context;
+        private readonly Shopikai.Data.ShopikaiContext _context;
 
-        public CreateModel(RazorPagesProduct.Data.RazorPagesOrderContext context)
+        public CreateModel(Shopikai.Data.ShopikaiContext context)
         {
             _context = context;
         }
@@ -31,12 +31,12 @@ namespace ShopApp.Pages.Orders
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-          if (!ModelState.IsValid || _context.Order == null || Order == null)
+          if (!ModelState.IsValid || _context.Orders == null || Order == null)
             {
                 return Page();
             }
 
-            _context.Order.Add(Order);
+            _context.Orders.Add(Order);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

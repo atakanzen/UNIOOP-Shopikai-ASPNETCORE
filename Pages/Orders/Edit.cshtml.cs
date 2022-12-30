@@ -6,16 +6,16 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using RazorPagesProduct.Data;
 using ShopApp.Models;
+using Shopikai.Data;
 
 namespace ShopApp.Pages.Orders
 {
     public class EditModel : PageModel
     {
-        private readonly RazorPagesProduct.Data.RazorPagesOrderContext _context;
+        private readonly Shopikai.Data.ShopikaiContext _context;
 
-        public EditModel(RazorPagesProduct.Data.RazorPagesOrderContext context)
+        public EditModel(Shopikai.Data.ShopikaiContext context)
         {
             _context = context;
         }
@@ -25,12 +25,12 @@ namespace ShopApp.Pages.Orders
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Order == null)
+            if (id == null || _context.Orders == null)
             {
                 return NotFound();
             }
 
-            var order =  await _context.Order.FirstOrDefaultAsync(m => m.Id == id);
+            var order =  await _context.Orders.FirstOrDefaultAsync(m => m.Id == id);
             if (order == null)
             {
                 return NotFound();
@@ -71,7 +71,7 @@ namespace ShopApp.Pages.Orders
 
         private bool OrderExists(int id)
         {
-          return (_context.Order?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Orders?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

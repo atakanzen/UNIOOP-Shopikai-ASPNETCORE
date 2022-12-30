@@ -5,16 +5,16 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using RazorPagesProduct.Data;
 using ShopApp.Models;
+using Shopikai.Data;
 
 namespace ShopApp.Pages.Receipts
 {
     public class DeleteModel : PageModel
     {
-        private readonly RazorPagesProduct.Data.RazorPagesReceiptContext _context;
+        private readonly Shopikai.Data.ShopikaiContext _context;
 
-        public DeleteModel(RazorPagesProduct.Data.RazorPagesReceiptContext context)
+        public DeleteModel(Shopikai.Data.ShopikaiContext context)
         {
             _context = context;
         }
@@ -24,12 +24,12 @@ namespace ShopApp.Pages.Receipts
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Receipt == null)
+            if (id == null || _context.Receipts == null)
             {
                 return NotFound();
             }
 
-            var receipt = await _context.Receipt.FirstOrDefaultAsync(m => m.Id == id);
+            var receipt = await _context.Receipts.FirstOrDefaultAsync(m => m.Id == id);
 
             if (receipt == null)
             {
@@ -44,16 +44,16 @@ namespace ShopApp.Pages.Receipts
 
         public async Task<IActionResult> OnPostAsync(int? id)
         {
-            if (id == null || _context.Receipt == null)
+            if (id == null || _context.Receipts == null)
             {
                 return NotFound();
             }
-            var receipt = await _context.Receipt.FindAsync(id);
+            var receipt = await _context.Receipts.FindAsync(id);
 
             if (receipt != null)
             {
                 Receipt = receipt;
-                _context.Receipt.Remove(Receipt);
+                _context.Receipts.Remove(Receipt);
                 await _context.SaveChangesAsync();
             }
 

@@ -16,6 +16,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Category[0].Title)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category[0].Catalogue)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -24,6 +27,9 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Catalogue.Id)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |

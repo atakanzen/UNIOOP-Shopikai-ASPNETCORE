@@ -5,16 +5,16 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using RazorPagesProduct.Data;
 using ShopApp.Models;
+using Shopikai.Data;
 
 namespace ShopApp.Pages.Receipts
 {
     public class IndexModel : PageModel
     {
-        private readonly RazorPagesProduct.Data.RazorPagesReceiptContext _context;
+        private readonly Shopikai.Data.ShopikaiContext _context;
 
-        public IndexModel(RazorPagesProduct.Data.RazorPagesReceiptContext context)
+        public IndexModel(Shopikai.Data.ShopikaiContext context)
         {
             _context = context;
         }
@@ -23,9 +23,10 @@ namespace ShopApp.Pages.Receipts
 
         public async Task OnGetAsync()
         {
-            if (_context.Receipt != null)
+            if (_context.Receipts != null)
             {
-                Receipt = await _context.Receipt.ToListAsync();
+                Receipt = await _context.Receipts
+                .Include(r => r.Order).ToListAsync();
             }
         }
     }

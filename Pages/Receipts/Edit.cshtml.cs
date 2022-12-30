@@ -6,16 +6,16 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using RazorPagesProduct.Data;
 using ShopApp.Models;
+using Shopikai.Data;
 
 namespace ShopApp.Pages.Receipts
 {
     public class EditModel : PageModel
     {
-        private readonly RazorPagesProduct.Data.RazorPagesReceiptContext _context;
+        private readonly Shopikai.Data.ShopikaiContext _context;
 
-        public EditModel(RazorPagesProduct.Data.RazorPagesReceiptContext context)
+        public EditModel(Shopikai.Data.ShopikaiContext context)
         {
             _context = context;
         }
@@ -25,17 +25,18 @@ namespace ShopApp.Pages.Receipts
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Receipt == null)
+            if (id == null || _context.Receipts == null)
             {
                 return NotFound();
             }
 
-            var receipt =  await _context.Receipt.FirstOrDefaultAsync(m => m.Id == id);
+            var receipt =  await _context.Receipts.FirstOrDefaultAsync(m => m.Id == id);
             if (receipt == null)
             {
                 return NotFound();
             }
             Receipt = receipt;
+           ViewData["OrderId"] = new SelectList(_context.Orders, "Id", "Id");
             return Page();
         }
 
@@ -71,7 +72,7 @@ namespace ShopApp.Pages.Receipts
 
         private bool ReceiptExists(int id)
         {
-          return (_context.Receipt?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Receipts?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

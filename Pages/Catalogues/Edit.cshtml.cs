@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using ShopApp.Models;
 using Shopikai.Data;
 
-namespace ShopApp.Pages.Categories
+namespace ShopApp.Pages.Catalogues
 {
   public class EditModel : PageModel
   {
@@ -21,22 +21,21 @@ namespace ShopApp.Pages.Categories
     }
 
     [BindProperty]
-    public Category Category { get; set; } = default!;
+    public Catalogue Catalogue { get; set; } = default!;
 
     public async Task<IActionResult> OnGetAsync(int? id)
     {
-      if (id == null || _context.Categories == null)
+      if (id == null || _context.Catalogues == null)
       {
         return NotFound();
       }
 
-      var category = await _context.Categories.FirstOrDefaultAsync(m => m.Id == id);
-      if (category == null)
+      var catalogue = await _context.Catalogues.FirstOrDefaultAsync(m => m.Id == id);
+      if (catalogue == null)
       {
         return NotFound();
       }
-      Category = category;
-      ViewData["CatalogueId"] = new SelectList(_context.Catalogues, "Id", "Id");
+      Catalogue = catalogue;
       return Page();
     }
 
@@ -49,7 +48,7 @@ namespace ShopApp.Pages.Categories
         return Page();
       }
 
-      _context.Attach(Category).State = EntityState.Modified;
+      _context.Attach(Catalogue).State = EntityState.Modified;
 
       try
       {
@@ -57,7 +56,7 @@ namespace ShopApp.Pages.Categories
       }
       catch (DbUpdateConcurrencyException)
       {
-        if (!CategoryExists(Category.Id))
+        if (!CatalogueExists(Catalogue.Id))
         {
           return NotFound();
         }
@@ -70,9 +69,9 @@ namespace ShopApp.Pages.Categories
       return RedirectToPage("./Index");
     }
 
-    private bool CategoryExists(int id)
+    private bool CatalogueExists(int id)
     {
-      return (_context.Categories?.Any(e => e.Id == id)).GetValueOrDefault();
+      return (_context.Catalogues?.Any(e => e.Id == id)).GetValueOrDefault();
     }
   }
 }

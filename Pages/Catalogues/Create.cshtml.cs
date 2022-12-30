@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using ShopApp.Models;
 using Shopikai.Data;
 
-namespace ShopApp.Pages.Categories
+namespace ShopApp.Pages.Catalogues
 {
   public class CreateModel : PageModel
   {
@@ -21,23 +21,22 @@ namespace ShopApp.Pages.Categories
 
     public IActionResult OnGet()
     {
-      ViewData["CatalogueId"] = new SelectList(_context.Catalogues, "Id", "Id");
       return Page();
     }
 
     [BindProperty]
-    public Category Category { get; set; } = default!;
+    public Catalogue Catalogue { get; set; } = default!;
 
 
     // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
     public async Task<IActionResult> OnPostAsync()
     {
-      if (!ModelState.IsValid || _context.Categories == null || Category == null)
+      if (!ModelState.IsValid || _context.Catalogues == null || Catalogue == null)
       {
         return Page();
       }
 
-      _context.Categories.Add(Category);
+      _context.Catalogues.Add(Catalogue);
       await _context.SaveChangesAsync();
 
       return RedirectToPage("./Index");

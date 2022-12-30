@@ -1,5 +1,5 @@
 @page
-@model ShopApp.Pages.Receipts.EditModel
+@model ShopApp.Pages.Catalogues.EditModel
 
 @{
     ViewData["Title"] = "Edit";
@@ -7,18 +7,13 @@
 
 <h1>Edit</h1>
 
-<h4>Receipt</h4>
+<h4>Catalogue</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Receipt.Id" />
-            <div class="form-group">
-                <label asp-for="Receipt.OrderId" class="control-label"></label>
-                <select asp-for="Receipt.OrderId" class="form-control" asp-items="ViewBag.OrderId"></select>
-                <span asp-validation-for="Receipt.OrderId" class="text-danger"></span>
-            </div>
+            <input type="hidden" asp-for="Catalogue.Id" />
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>

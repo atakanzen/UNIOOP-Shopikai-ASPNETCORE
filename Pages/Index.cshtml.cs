@@ -1,26 +1,20 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using RazorPagesProduct.Data;
+using Shopikai.Data;
+using ShopApp.Models;
 
 namespace ShopApp.Pages;
 
 public class IndexModel : PageModel
 {
-  private readonly RazorPagesProductContext _productContext;
-  private readonly RazorPagesCategoryContext _categoryContext;
-  private readonly RazorPagesOrderContext _orderContext;
-  private readonly RazorPagesReceiptContext _receiptContext;
-
+  private readonly ShopikaiContext _shopikaiContext;
   private readonly ILogger<IndexModel> _logger;
 
   [ActivatorUtilitiesConstructor]
-  public IndexModel(ILogger<IndexModel> logger, RazorPagesProductContext productContext, RazorPagesCategoryContext categoryContext, RazorPagesOrderContext orderContext, RazorPagesReceiptContext receiptContext)
+  public IndexModel(ILogger<IndexModel> logger, ShopikaiContext shopikaiContext)
   {
     _logger = logger;
-    _productContext = productContext;
-    _categoryContext = categoryContext;
-    _orderContext = orderContext;
-    _receiptContext = receiptContext;
+    _shopikaiContext = shopikaiContext;
   }
 
   public int ProductsCount { get; set; }
@@ -30,14 +24,14 @@ public class IndexModel : PageModel
 
   public void OnGet()
   {
-    IQueryable<string> productQuery = from p in _productContext.Product
-                                      select p.Title;
-    IQueryable<string> categoryQuery = from c in _categoryContext.Category
-                                       select c.Title;
-    IQueryable<int> orderQuery = from o in _orderContext.Order
-                                 select o.Id;
-    IQueryable<int> receiptQuery = from r in _receiptContext.Receipt
-                                   select r.Id;
+    IQueryable<Product> productQuery = from p in _shopikaiContext.Products
+                                       select p;
+    IQueryable<Category> categoryQuery = from c in _shopikaiContext.Categories
+                                         select c;
+    IQueryable<Order> orderQuery = from o in _shopikaiContext.Orders
+                                   select o;
+    IQueryable<Receipt> receiptQuery = from r in _shopikaiContext.Receipts
+                                       select r;
 
     ProductsCount = productQuery.ToList().Count;
     CategoriesCount = categoryQuery.ToList().Count;

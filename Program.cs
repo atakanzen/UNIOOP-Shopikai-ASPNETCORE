@@ -1,20 +1,15 @@
 using Microsoft.EntityFrameworkCore;
-using RazorPagesProduct.Data;
+using Shopikai.Data;
 using ShopApp.Models;
 using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
-
+// TODO: Update pages with new fields
 // Add services to the container.
 builder.Services.AddRazorPages();
-builder.Services.AddDbContext<RazorPagesReceiptContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("RazorPagesReceiptContext") ?? throw new InvalidOperationException("Connection string 'RazorPagesReceiptContext' not found.")));
-builder.Services.AddDbContext<RazorPagesOrderContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("RazorPagesOrderContext") ?? throw new InvalidOperationException("Connection string 'RazorPagesOrderContext' not found.")));
-builder.Services.AddDbContext<RazorPagesCategoryContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("RazorPagesCategoryContext") ?? throw new InvalidOperationException("Connection string 'RazorPagesCategoryContext' not found.")));
-builder.Services.AddDbContext<RazorPagesProductContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("RazorPagesProductContext") ?? throw new InvalidOperationException("Connection string 'RazorPagesProductContext' not found.")));
+builder.Services.AddDbContext<ShopikaiContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("ShopikaiContext") ?? throw new InvalidOperationException("Connection string 'ShopikaiContext' not found.")));
+
 
 var app = builder.Build();
 
@@ -23,7 +18,11 @@ using (var scope = app.Services.CreateScope())
 {
   var services = scope.ServiceProvider;
 
-  SeedData.Initialize(services);
+  var context = services.GetRequiredService<ShopikaiContext>();
+  context.Database.EnsureCreated();
+
+  // This is to initialize dummy data. 
+  // SeedData.Initialize(services);
 }
 
 // Configure the HTTP request pipeline.

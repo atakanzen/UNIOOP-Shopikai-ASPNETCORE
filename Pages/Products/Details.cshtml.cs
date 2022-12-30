@@ -5,16 +5,16 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using RazorPagesProduct.Data;
 using ShopApp.Models;
+using Shopikai.Data;
 
 namespace ShopApp.Pages.Products
 {
     public class DetailsModel : PageModel
     {
-        private readonly RazorPagesProduct.Data.RazorPagesProductContext _context;
+        private readonly Shopikai.Data.ShopikaiContext _context;
 
-        public DetailsModel(RazorPagesProduct.Data.RazorPagesProductContext context)
+        public DetailsModel(Shopikai.Data.ShopikaiContext context)
         {
             _context = context;
         }
@@ -23,12 +23,12 @@ namespace ShopApp.Pages.Products
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Product == null)
+            if (id == null || _context.Products == null)
             {
                 return NotFound();
             }
 
-            var product = await _context.Product.FirstOrDefaultAsync(m => m.Id == id);
+            var product = await _context.Products.FirstOrDefaultAsync(m => m.Id == id);
             if (product == null)
             {
                 return NotFound();

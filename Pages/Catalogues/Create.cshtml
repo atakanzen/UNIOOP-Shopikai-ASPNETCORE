@@ -1,5 +1,5 @@
 @page
-@model ShopApp.Pages.Receipts.CreateModel
+@model ShopApp.Pages.Catalogues.CreateModel
 
 @{
     ViewData["Title"] = "Create";
@@ -7,16 +7,12 @@
 
 <h1>Create</h1>
 
-<h4>Receipt</h4>
+<h4>Catalogue</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Receipt.OrderId" class="control-label"></label>
-                <select asp-for="Receipt.OrderId" class ="form-control" asp-items="ViewBag.OrderId"></select>
-            </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

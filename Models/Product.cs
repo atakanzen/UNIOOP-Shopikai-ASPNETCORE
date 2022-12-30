@@ -6,12 +6,14 @@ namespace ShopApp.Models;
 public class Product
 {
   public int Id { get; set; }
+  [Required]
+  public int CategoryId { get; set; }
 
   [Required, StringLength(100, MinimumLength = 3)]
   public string Title { get; set; }
 
   [Required]
-  public string Category { get; set; }
+  public Category Category { get; set; }
 
 
   // Types decimal, float, int, DateTime are required by default.

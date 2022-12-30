@@ -5,16 +5,16 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using RazorPagesProduct.Data;
 using ShopApp.Models;
+using Shopikai.Data;
 
 namespace ShopApp.Pages.Orders
 {
     public class IndexModel : PageModel
     {
-        private readonly RazorPagesProduct.Data.RazorPagesOrderContext _context;
+        private readonly Shopikai.Data.ShopikaiContext _context;
 
-        public IndexModel(RazorPagesProduct.Data.RazorPagesOrderContext context)
+        public IndexModel(Shopikai.Data.ShopikaiContext context)
         {
             _context = context;
         }
@@ -23,9 +23,9 @@ namespace ShopApp.Pages.Orders
 
         public async Task OnGetAsync()
         {
-            if (_context.Order != null)
+            if (_context.Orders != null)
             {
-                Order = await _context.Order.ToListAsync();
+                Order = await _context.Orders.ToListAsync();
             }
         }
     }
