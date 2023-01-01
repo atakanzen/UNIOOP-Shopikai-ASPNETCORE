@@ -15,16 +15,21 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Catalogue.Id" />
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <label asp-for="Catalogue.Title" class="control-label"></label>
+                <input asp-for="Catalogue.Title" class="form-control" />
+                <span asp-validation-for="Catalogue.Title" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-3">
+                <div class="hstack gap-3">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                    <div class="vr"></div>
+                    <a asp-page="./Index">Back to List</a>
+                </div>
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-page="./Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

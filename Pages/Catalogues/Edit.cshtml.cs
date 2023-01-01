@@ -11,67 +11,67 @@ using Shopikai.Data;
 
 namespace ShopApp.Pages.Catalogues
 {
-  public class EditModel : PageModel
-  {
-    private readonly Shopikai.Data.ShopikaiContext _context;
-
-    public EditModel(Shopikai.Data.ShopikaiContext context)
+    public class EditModel : PageModel
     {
-      _context = context;
-    }
+        private readonly Shopikai.Data.ShopikaiContext _context;
 
-    [BindProperty]
-    public Catalogue Catalogue { get; set; } = default!;
-
-    public async Task<IActionResult> OnGetAsync(int? id)
-    {
-      if (id == null || _context.Catalogues == null)
-      {
-        return NotFound();
-      }
-
-      var catalogue = await _context.Catalogues.FirstOrDefaultAsync(m => m.Id == id);
-      if (catalogue == null)
-      {
-        return NotFound();
-      }
-      Catalogue = catalogue;
-      return Page();
-    }
-
-    // To protect from overposting attacks, enable the specific properties you want to bind to.
-    // For more details, see https://aka.ms/RazorPagesCRUD.
-    public async Task<IActionResult> OnPostAsync()
-    {
-      if (!ModelState.IsValid)
-      {
-        return Page();
-      }
-
-      _context.Attach(Catalogue).State = EntityState.Modified;
-
-      try
-      {
-        await _context.SaveChangesAsync();
-      }
-      catch (DbUpdateConcurrencyException)
-      {
-        if (!CatalogueExists(Catalogue.Id))
+        public EditModel(Shopikai.Data.ShopikaiContext context)
         {
-          return NotFound();
+            _context = context;
         }
-        else
+
+        [BindProperty]
+        public Catalogue Catalogue { get; set; } = default!;
+
+        public async Task<IActionResult> OnGetAsync(int? id)
         {
-          throw;
+            if (id == null || _context.Catalogues == null)
+            {
+                return NotFound();
+            }
+
+            var catalogue =  await _context.Catalogues.FirstOrDefaultAsync(m => m.Id == id);
+            if (catalogue == null)
+            {
+                return NotFound();
+            }
+            Catalogue = catalogue;
+            return Page();
         }
-      }
 
-      return RedirectToPage("./Index");
-    }
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see https://aka.ms/RazorPagesCRUD.
+        public async Task<IActionResult> OnPostAsync()
+        {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
 
-    private bool CatalogueExists(int id)
-    {
-      return (_context.Catalogues?.Any(e => e.Id == id)).GetValueOrDefault();
+            _context.Attach(Catalogue).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!CatalogueExists(Catalogue.Id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return RedirectToPage("./Index");
+        }
+
+        private bool CatalogueExists(int id)
+        {
+          return (_context.Catalogues?.Any(e => e.Id == id)).GetValueOrDefault();
+        }
     }
-  }
 }

@@ -36,7 +36,7 @@ namespace ShopApp.Pages.Products
                 return NotFound();
             }
             Product = product;
-           ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Id");
+           ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Title");
             return Page();
         }
 

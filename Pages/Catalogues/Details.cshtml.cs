@@ -10,34 +10,34 @@ using Shopikai.Data;
 
 namespace ShopApp.Pages.Catalogues
 {
-  public class DetailsModel : PageModel
-  {
-    private readonly Shopikai.Data.ShopikaiContext _context;
-
-    public DetailsModel(Shopikai.Data.ShopikaiContext context)
+    public class DetailsModel : PageModel
     {
-      _context = context;
+        private readonly Shopikai.Data.ShopikaiContext _context;
+
+        public DetailsModel(Shopikai.Data.ShopikaiContext context)
+        {
+            _context = context;
+        }
+
+      public Catalogue Catalogue { get; set; } = default!; 
+
+        public async Task<IActionResult> OnGetAsync(int? id)
+        {
+            if (id == null || _context.Catalogues == null)
+            {
+                return NotFound();
+            }
+
+            var catalogue = await _context.Catalogues.FirstOrDefaultAsync(m => m.Id == id);
+            if (catalogue == null)
+            {
+                return NotFound();
+            }
+            else 
+            {
+                Catalogue = catalogue;
+            }
+            return Page();
+        }
     }
-
-    public Catalogue Catalogue { get; set; } = default!;
-
-    public async Task<IActionResult> OnGetAsync(int? id)
-    {
-      if (id == null || _context.Catalogues == null)
-      {
-        return NotFound();
-      }
-
-      var catalogue = await _context.Catalogues.FirstOrDefaultAsync(m => m.Id == id);
-      if (catalogue == null)
-      {
-        return NotFound();
-      }
-      else
-      {
-        Catalogue = catalogue;
-      }
-      return Page();
-    }
-  }
 }

@@ -6,7 +6,7 @@ namespace ShopApp.Models;
 public class Product
 {
   public int Id { get; set; }
-  [Required]
+  [Display(Name = "Category")]
   public int CategoryId { get; set; }
 
   [Required, StringLength(100, MinimumLength = 3)]

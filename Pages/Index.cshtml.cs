@@ -21,6 +21,7 @@ public class IndexModel : PageModel
   public int CategoriesCount { get; set; }
   public int OrdersCount { get; set; }
   public int ReceiptsCount { get; set; }
+  public bool IsCatalogueExists { get; set; }
 
   public void OnGet()
   {
@@ -32,6 +33,7 @@ public class IndexModel : PageModel
                                    select o;
     IQueryable<Receipt> receiptQuery = from r in _shopikaiContext.Receipts
                                        select r;
+    IsCatalogueExists = _shopikaiContext.Catalogues.Any();
 
     ProductsCount = productQuery.ToList().Count;
     CategoriesCount = categoryQuery.ToList().Count;

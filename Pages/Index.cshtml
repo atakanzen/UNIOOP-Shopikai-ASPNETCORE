@@ -5,91 +5,96 @@
 }
 
 <div class="container">
-    <div class="row my-5 g-5">
+
+    <div class="row my-5">
         <div class="col-12">
             <div class="card shadow">
                 <div class="card-header">Catalogue</div>
                 <div class="card-body">
-                    <h5 class="card-title">
-                        The one and only.
-                    </h5>
+                    <h5 class="card-title">Everything connects here</h5>
                     <p class="card-text">
-                        Look here if you want to see everything.
+                        You can manage your catalogue from here.
                     </p>
-                    <a asp-page="/Catalogues/Index" class="btn btn-primary w-100">Let me see.</a>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card shadow">
-                <div class="card-header">Products</div>
-                <div class="card-body">
-                    <h5 class="card-title">
-                        Manage your products
-                    </h5>
-                    <p class="card-text">
-                        Here you can create, update, delete, or display your products!
-                    </p>
-                    <a asp-page="/Products/Index" class="btn btn-primary w-100">Go!</a>
-                </div>
-                <div class="card-footer text-muted  text-center">
-                    @Model.ProductsCount Products
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card shadow">
-                <div class="card-header">Categories</div>
-                <div class="card-body">
-                    <h5 class="card-title">
-                        It won't be fun without categories!
-                    </h5>
-                    <p class="card-text">
-                        You can fill your categories with products you choose.
-                    </p>
-                    <a asp-page="/Categories/Index" class="btn btn-primary w-100">Let's do it</a>
-                </div>
-                <div class="card-footer text-muted  text-center">
-                    @Model.CategoriesCount Categories
+                    <a asp-page="/Catalogues/Index" class="btn btn-primary w-100">Let's do it!</a>
                 </div>
             </div>
         </div>
     </div>
-    <div class="row my-5">
-        <div class="col">
-            <div class="card shadow">
-                <div class="card-header">Orders</div>
-                <div class="card-body">
-                    <h5 class="card-title">
-                        Here resides your orders.
-                    </h5>
-                    <p class="card-text">
-                        It's pretty much all love and hate here.
-                    </p>
-                    <a asp-page="/Orders/Index" class="btn btn-primary w-100">Take me there!</a>
+    @if (Model.IsCatalogueExists)
+    {
+        <div class="row gx-5">
+            <div class="col">
+                <div class="card shadow">
+                    <div class="card-header">Products</div>
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            Manage your products
+                        </h5>
+                        <p class="card-text">
+                            Here you can create, update, delete, or display your products!
+                        </p>
+                        <a asp-page="/Products/Index" class="btn btn-primary w-100">Go!</a>
+                    </div>
+                    <div class="card-footer text-muted  text-center">
+                        @Model.ProductsCount Products
+                    </div>
                 </div>
-                <div class="card-footer text-muted text-center">
-                    @Model.OrdersCount Orders
+            </div>
+            <div class="col">
+                <div class="card shadow">
+                    <div class="card-header">Categories</div>
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            It won't be fun without categories!
+                        </h5>
+                        <p class="card-text">
+                            You can fill your categories with products you choose.
+                        </p>
+                        <a asp-page="/Categories/Index" class="btn btn-primary w-100">Let's do it</a>
+                    </div>
+                    <div class="card-footer text-muted  text-center">
+                        @Model.CategoriesCount Categories
+                    </div>
                 </div>
             </div>
         </div>
+        <div class="row my-5 gx-5">
+            <div class="col">
+                <div class="card shadow">
+                    <div class="card-header">Orders</div>
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            Here resides your orders.
+                        </h5>
+                        <p class="card-text">
+                            It's pretty much all love and hate here.
+                        </p>
+                        <a asp-page="/Orders/Index" class="btn btn-primary w-100">Take me there!</a>
+                    </div>
+                    <div class="card-footer text-muted text-center">
+                        @Model.OrdersCount Orders
+                    </div>
+                </div>
+            </div>
 
-        <div class="col">
-            <div class="card shadow">
-                <div class="card-header">Receipts</div>
-                <div class="card-body">
-                    <h5 class="card-title">
-                        The proof. Receipts.
-                    </h5>
-                    <p class="card-text">
-                        Psst! These can be helpful for budgeting for the future.
-                    </p>
-                    <a asp-page="/Receipts/Index" class="btn btn-primary w-100">Show me</a>
-                </div>
-                <div class="card-footer text-muted text-center">
-                    @Model.ReceiptsCount Receipts
+            <div class="col">
+                <div class="card shadow">
+                    <div class="card-header">Receipts</div>
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            The proof. Receipts.
+                        </h5>
+                        <p class="card-text">
+                            Psst! These can be helpful for budgeting for the future.
+                        </p>
+                        <a asp-page="/Receipts/Index" class="btn btn-primary w-100">Show me</a>
+                    </div>
+                    <div class="card-footer text-muted text-center">
+                        @Model.ReceiptsCount Receipts
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    }
+
 </div>

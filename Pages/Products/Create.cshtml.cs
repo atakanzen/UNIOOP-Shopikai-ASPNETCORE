@@ -21,7 +21,7 @@ namespace ShopApp.Pages.Products
 
         public IActionResult OnGet()
         {
-        ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Id");
+        ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Title");
             return Page();
         }
 
