@@ -5,15 +5,16 @@ namespace ShopApp.Models;
 
 public class Product
 {
+
+  [Key]
   public int Id { get; set; }
-  [Display(Name = "Category")]
-  public int CategoryId { get; set; }
 
   [Required, StringLength(100, MinimumLength = 3)]
   public string Title { get; set; }
 
-  [Required]
-  public Category Category { get; set; }
+  [ForeignKey("Category")]
+  public int CategoryId { get; set; }
+  public Category? Category { get; set; }
 
 
   // Types decimal, float, int, DateTime are required by default.

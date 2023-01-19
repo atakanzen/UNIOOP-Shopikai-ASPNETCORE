@@ -5,10 +5,9 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>Details Catalogue</h1>
 
 <div>
-    <h4>Catalogue</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -19,7 +18,7 @@
         </dd>
     </dl>
 </div>
-<div class="hstack gap-3">
+<div class="hstack gap-3 mt-3">
     <a asp-page="./Edit" asp-route-id="@Model.Catalogue?.Id">Edit</a>
     <div class="vr"></div>
     <a asp-page="./Index">Back to List</a>

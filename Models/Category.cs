@@ -1,15 +1,21 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ShopApp.Models;
 
 public class Category
 {
+  [Key]
   public int Id { get; set; }
-  [Display(Name = "Catalogue")]
-  public int CatalogueId { get; set; }
+
+  [Display(Name = "Category Title")]
   [Required, StringLength(150, MinimumLength = 3)]
   public string Title { get; set; }
-  public Catalogue Catalogue { get; set; }
+
+  [ForeignKey("Catalogue")]
+  public int CatalogueId { get; set; }
+  public Catalogue? Catalogue { get; set; }
+
   public ICollection<Product>? Products { get; set; }
 
 }

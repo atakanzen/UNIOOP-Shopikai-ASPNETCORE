@@ -10,37 +10,46 @@ using Shopikai.Data;
 
 namespace ShopApp.Pages.Categories
 {
-    public class CreateModel : PageModel
+  public class CreateModel : CatalogueTitlePageModel
+  {
+    private readonly Shopikai.Data.ShopikaiContext _context;
+
+    public CreateModel(Shopikai.Data.ShopikaiContext context)
     {
-        private readonly Shopikai.Data.ShopikaiContext _context;
-
-        public CreateModel(Shopikai.Data.ShopikaiContext context)
-        {
-            _context = context;
-        }
-
-        public IActionResult OnGet()
-        {
-        ViewData["CatalogueId"] = new SelectList(_context.Catalogues, "Id", "Title");
-            return Page();
-        }
-
-        [BindProperty]
-        public Category Category { get; set; } = default!;
-        
-
-        // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
-        public async Task<IActionResult> OnPostAsync()
-        {
-          if (!ModelState.IsValid || _context.Categories == null || Category == null)
-            {
-                return Page();
-            }
-
-            _context.Categories.Add(Category);
-            await _context.SaveChangesAsync();
-
-            return RedirectToPage("./Index");
-        }
+      _context = context;
     }
+
+    public IActionResult OnGet()
+    {
+      PopulateCatalogueDropdownList(_context);
+      return Page();
+    }
+
+    [BindProperty]
+    public Category Category { get; set; } = default!;
+
+
+    // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
+    public async Task<IActionResult> OnPostAsync()
+    {
+
+      var emptyCategory = new Category();
+
+      if (await TryUpdateModelAsync<Category>(
+        emptyCategory,
+        "Category",
+        v => v.Id,
+        v => v.CatalogueId,
+        v => v.Title))
+      {
+        _context.Categories.Add(emptyCategory);
+        await _context.SaveChangesAsync();
+        return RedirectToPage("./Index");
+      }
+
+      // Select CatalogueId if TryUpdateModelAsync fails.
+      PopulateCatalogueDropdownList(_context, emptyCategory.CatalogueId);
+      return Page();
+    }
+  }
 }

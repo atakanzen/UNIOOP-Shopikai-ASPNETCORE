@@ -11,8 +11,8 @@ using Shopikai.Data;
 namespace ShopApp.Migrations
 {
     [DbContext(typeof(ShopikaiContext))]
-    [Migration("20221230180330_AddValidations")]
-    partial class AddValidations
+    [Migration("20230119213219_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

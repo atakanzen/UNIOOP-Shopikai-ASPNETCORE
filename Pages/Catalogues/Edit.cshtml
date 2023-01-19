@@ -5,9 +5,8 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<h1>Edit Catalogue</h1>
 
-<h4>Catalogue</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -19,12 +18,10 @@
                 <input asp-for="Catalogue.Title" class="form-control" />
                 <span asp-validation-for="Catalogue.Title" class="text-danger"></span>
             </div>
-            <div class="form-group mt-3">
-                <div class="hstack gap-3">
-                    <input type="submit" value="Save" class="btn btn-primary" />
-                    <div class="vr"></div>
-                    <a asp-page="./Index">Back to List</a>
-                </div>
+            <div class="form-group hstack gap-3 mt-3">
+                <input type="submit" value="Save" class="btn btn-primary" />
+                <div class="vr"></div>
+                <a asp-page="Index">Back to list</a>
             </div>
         </form>
     </div>
