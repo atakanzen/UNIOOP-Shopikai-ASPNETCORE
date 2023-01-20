@@ -10,7 +10,7 @@ using Shopikai.Data;
 
 namespace ShopApp.Pages.Categories
 {
-  public class CreateModel : CatalogueTitlePageModel
+  public class CreateModel : CategoryPageModel
   {
     private readonly Shopikai.Data.ShopikaiContext _context;
 

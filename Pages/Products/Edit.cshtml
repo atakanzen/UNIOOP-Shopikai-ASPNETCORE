@@ -5,56 +5,54 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<h1>Edit Product</h1>
 
-<h4>Product</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form method="post">
+        <form method="post" class="vstack gap-3">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Product.Id" />
             <div class="form-group">
-                <label asp-for="Product.Title" class="control-label"></label>
+                <label asp-for="Product.Title" class="form-label"></label>
                 <input asp-for="Product.Title" class="form-control" />
                 <span asp-validation-for="Product.Title" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Product.CategoryId" class="control-label"></label>
-                <select asp-for="Product.CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
+                <label asp-for="Product.Category" class="form-label"></label>
+                <select asp-for="Product.CategoryId" class="form-control" asp-items="@Model.CategoryTitleSL"></select>
                 <span asp-validation-for="Product.CategoryId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Product.ReleaseDate" class="control-label"></label>
-                <input asp-for="Product.ReleaseDate" class="form-control" />
+                <label asp-for="Product.ReleaseDate" class="form-label"></label>
+                <input asp-for="Product.ReleaseDate" class="form-control" type="date" asp-format="{0:yyyy-MM-dd}" />
                 <span asp-validation-for="Product.ReleaseDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Product.Price" class="control-label"></label>
+                <label asp-for="Product.Price" class="form-label"></label>
                 <input asp-for="Product.Price" class="form-control" />
                 <span asp-validation-for="Product.Price" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Product.Stock" class="control-label"></label>
+                <label asp-for="Product.Stock" class="form-label"></label>
                 <input asp-for="Product.Stock" class="form-control" />
                 <span asp-validation-for="Product.Stock" class="text-danger"></span>
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Product.HasDiscount" /> @Html.DisplayNameFor(model => model.Product.HasDiscount)
+                    <input class="form-check-input" asp-for="Product.HasDiscount" /> @Html.DisplayNameFor(model =>
+                    model.Product.HasDiscount)
                 </label>
             </div>
-            <div class="form-group">
+            <div class="form-group hstack gap-3">
                 <input type="submit" value="Save" class="btn btn-primary" />
+                <div class="vr"></div>
+                <a asp-page="./Index">Back to List</a>
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-page="./Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

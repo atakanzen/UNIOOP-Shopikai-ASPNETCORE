@@ -7,9 +7,9 @@ using System.Linq;
 
 namespace ShopApp.Pages.Categories
 {
-  public class CatalogueTitlePageModel : PageModel
+  public class CategoryPageModel : PageModel
   {
-    public SelectList CatalogueSL { get; set; }
+    public SelectList CatalogueTitleSL { get; set; }
 
     public void PopulateCatalogueDropdownList(ShopikaiContext _context, object selectedCatalogue = null)
     {
@@ -17,7 +17,7 @@ namespace ShopApp.Pages.Categories
                             orderby c.Title
                             select c;
 
-      CatalogueSL = new SelectList(cataloguesQuery.AsNoTracking(), nameof(Catalogue.Id), nameof(Catalogue.Title), selectedCatalogue);
+      CatalogueTitleSL = new SelectList(cataloguesQuery.AsNoTracking(), nameof(Catalogue.Id), nameof(Catalogue.Title), selectedCatalogue);
     }
 
   }

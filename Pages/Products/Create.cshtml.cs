@@ -10,37 +10,39 @@ using Shopikai.Data;
 
 namespace ShopApp.Pages.Products
 {
-    public class CreateModel : PageModel
+  public class CreateModel : ProductPageModel
+  {
+    private readonly Shopikai.Data.ShopikaiContext _context;
+
+    public CreateModel(Shopikai.Data.ShopikaiContext context)
     {
-        private readonly Shopikai.Data.ShopikaiContext _context;
-
-        public CreateModel(Shopikai.Data.ShopikaiContext context)
-        {
-            _context = context;
-        }
-
-        public IActionResult OnGet()
-        {
-        ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Title");
-            return Page();
-        }
-
-        [BindProperty]
-        public Product Product { get; set; } = default!;
-        
-
-        // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
-        public async Task<IActionResult> OnPostAsync()
-        {
-          if (!ModelState.IsValid || _context.Products == null || Product == null)
-            {
-                return Page();
-            }
-
-            _context.Products.Add(Product);
-            await _context.SaveChangesAsync();
-
-            return RedirectToPage("./Index");
-        }
+      _context = context;
     }
+
+    public IActionResult OnGet()
+    {
+      PopulateCategoryTitleSL(_context);
+      return Page();
+    }
+
+    [BindProperty]
+    public Product Product { get; set; } = default!;
+
+
+    // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
+    public async Task<IActionResult> OnPostAsync()
+    {
+      var emptyProduct = new Product();
+
+      if (await TryUpdateModelAsync<Product>(emptyProduct, "product", p => p.Title, p => p.CategoryId, p => p.ReleaseDate, p => p.Price, p => p.Stock, p => p.HasDiscount))
+      {
+        _context.Products.Add(Product);
+        await _context.SaveChangesAsync();
+        return RedirectToPage("./Index");
+      }
+
+      PopulateCategoryTitleSL(_context, emptyProduct.CategoryId);
+      return Page();
+    }
+  }
 }

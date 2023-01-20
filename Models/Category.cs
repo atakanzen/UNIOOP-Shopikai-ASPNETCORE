@@ -8,11 +8,11 @@ public class Category
   [Key]
   public int Id { get; set; }
 
-  [Display(Name = "Category Title")]
   [Required, StringLength(150, MinimumLength = 3)]
   public string Title { get; set; }
 
   [ForeignKey("Catalogue")]
+  [Display(Name = "Catalogue")]
   public int CatalogueId { get; set; }
   public Catalogue? Catalogue { get; set; }
 

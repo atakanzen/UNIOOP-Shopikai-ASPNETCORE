@@ -29,9 +29,13 @@
                     @Html.DisplayFor(modelItem => item.Title)
                 </td>
                 <td>
-                    <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                    <div class="hstack gap-2">
+                        <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a>
+                        <div class="vr"></div>
+                        <a asp-page="./Details" asp-route-id="@item.Id">Details</a>
+                        <div class="vr"></div>
+                        <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                    </div>
                 </td>
             </tr>
         }
