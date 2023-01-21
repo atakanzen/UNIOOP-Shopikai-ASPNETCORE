@@ -2,10 +2,10 @@
 @model ShopApp.Pages.Orders.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Orders";
 }
 
-<h1>Index</h1>
+<h1>Orders</h1>
 
 <p>
     <a asp-page="Create">Create New</a>
@@ -13,18 +13,39 @@
 <table class="table">
     <thead>
         <tr>
+            <th>@Html.DisplayNameFor(model => model.Orders[0].Id)</th>
+            <th>@Html.DisplayNameFor(model => model.Orders[0].NumberOfProducts)</th>
+            <th>@Html.DisplayNameFor(model => model.Orders[0].Total)</th>
+            <th>@Html.DisplayNameFor(model => model.Orders[0].ShipmentAddressLabel)</th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Order) {
-        <tr>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.Orders)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NumberOfProducts)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Total)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ShipmentAddressLabel)
+                </td>
+                <td>
+                    <div class="hstack gap-2">
+                        <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a>
+                        <div class="vr"></div>
+                        <a asp-page="./Details" asp-route-id="@item.Id">Details</a>
+                        <div class="vr"></div>
+                        <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                    </div>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Shopikai.Data;
 
@@ -10,9 +11,11 @@ using Shopikai.Data;
 namespace ShopApp.Migrations
 {
     [DbContext(typeof(ShopikaiContext))]
-    partial class ShopikaiContextModelSnapshot : ModelSnapshot
+    [Migration("20230121102610_UpdateOrderModel")]
+    partial class UpdateOrderModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.1");
@@ -60,31 +63,11 @@ namespace ShopApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("NumberOfProducts")
-                        .HasColumnType("INTEGER");
-
                     b.Property<int>("PaymentMethod")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("ShipmentAddress")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("ShipmentAddressLabel")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("ShipmentPostalCode")
                         .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("ShipmentTrackingID")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("ShippingDate")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("ShippingMethod")

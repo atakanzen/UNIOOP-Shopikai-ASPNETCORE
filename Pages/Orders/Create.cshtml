@@ -4,6 +4,7 @@
 @{
     ViewData["Title"] = "Create";
 }
+@using ShopApp.Models;
 
 <h1>Create</h1>
 
@@ -11,19 +12,62 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form method="post">
+        <form method="post" class="vstack gap-3 needs-validation">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
+                <label asp-for="Order.ShipmentPostalCode" class="form-label"></label>
+                <input asp-for="Order.ShipmentPostalCode" class="form-control" />
+                <span asp-validation-for="Order.ShipmentPostalCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Order.ShipmentAddressLabel" class="form-label"></label>
+                <input asp-for="Order.ShipmentAddressLabel" class="form-control" />
+                <span asp-validation-for="Order.ShipmentAddressLabel" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Order.ShipmentAddress" class="form-label"></label>
+                <input asp-for="Order.ShipmentAddress" class="form-control" />
+                <span asp-validation-for="Order.ShipmentAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Order.ShippingMethod" class="form-label"></label>
+                <select asp-for="Order.ShippingMethod" class="form-select"
+                    asp-items="@(Html.GetEnumSelectList<ShippingMethod>())">
+                    <option value="">Select Shipping Method</option>
+                </select>
+                <span asp-validation-for="Order.ShippingMethod" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Order.ShippingDate" class="form-label"></label>
+                <input asp-for="Order.ShippingDate" class="form-control" />
+                <span asp-validation-for="Order.ShippingDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Order.PaymentMethod" class="form-label"></label>
+                <select asp-for="Order.PaymentMethod" class="form-select"
+                    asp-items="@(Html.GetEnumSelectList<PaymentMethod>())">
+                    <option value="">Select Payment Method</option>
+                </select>
+                <span asp-validation-for="Order.PaymentMethod" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Order.Products" class="form-label"></label>
+                <select asp-for="SelectedProductIds" multiple class="form-select selectpicker"
+                    asp-items="@Model.ProductsSL">
+                </select>
+            </div>
+            <div class="form-group hstack gap-3">
                 <input type="submit" value="Create" class="btn btn-primary" />
+                <div class="vr"></div>
+                <a asp-page="Index">Back to List</a>
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-page="Index">Back to List</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

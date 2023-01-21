@@ -10,23 +10,23 @@ using Shopikai.Data;
 
 namespace ShopApp.Pages.Orders
 {
-    public class IndexModel : PageModel
+  public class IndexModel : PageModel
+  {
+    private readonly Shopikai.Data.ShopikaiContext _context;
+
+    public IndexModel(Shopikai.Data.ShopikaiContext context)
     {
-        private readonly Shopikai.Data.ShopikaiContext _context;
-
-        public IndexModel(Shopikai.Data.ShopikaiContext context)
-        {
-            _context = context;
-        }
-
-        public IList<Order> Order { get;set; } = default!;
-
-        public async Task OnGetAsync()
-        {
-            if (_context.Orders != null)
-            {
-                Order = await _context.Orders.ToListAsync();
-            }
-        }
+      _context = context;
     }
+
+    public IList<Order> Orders { get; set; } = default!;
+
+    public async Task OnGetAsync()
+    {
+      if (_context.Orders != null)
+      {
+        Orders = await _context.Orders.ToListAsync();
+      }
+    }
+  }
 }

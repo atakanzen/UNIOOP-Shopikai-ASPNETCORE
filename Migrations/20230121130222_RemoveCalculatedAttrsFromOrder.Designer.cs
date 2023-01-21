@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Shopikai.Data;
 
@@ -10,9 +11,11 @@ using Shopikai.Data;
 namespace ShopApp.Migrations
 {
     [DbContext(typeof(ShopikaiContext))]
-    partial class ShopikaiContextModelSnapshot : ModelSnapshot
+    [Migration("20230121130222_RemoveCalculatedAttrsFromOrder")]
+    partial class RemoveCalculatedAttrsFromOrder
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.1");
