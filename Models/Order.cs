@@ -1,5 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+
 namespace ShopApp.Models;
 
 public enum ShippingMethod
@@ -27,15 +29,16 @@ public class Order
   [Required, StringLength(50, MinimumLength = 3), Display(Name = "Address Label")]
   public string ShipmentAddressLabel { get; set; }
 
-  [Required, StringLength(100, MinimumLength = 20)]
+  [Required, StringLength(100, MinimumLength = 20), Display(Name = "Shipment Address")]
   public string ShipmentAddress { get; set; }
 
-  public string ShipmentTrackingID { get; set; }
+  [Display(Name = "Shipment Tracking ID")]
+  public string ShipmentTrackingID { get; set; } = new Random().Next().ToString("X");
 
-  [Required, Display(Name = "Shipping Method")]
+  [Required, Display(Name = "Shipment Method")]
   public ShippingMethod ShippingMethod { get; set; }
 
-  [Required, DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+  [Required, DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true), Display(Name = "Shipment Date")]
   public DateTime ShippingDate { get; set; }
 
   [Required, Display(Name = "Payment Method")]

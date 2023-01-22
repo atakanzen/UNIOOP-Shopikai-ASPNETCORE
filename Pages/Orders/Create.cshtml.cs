@@ -15,7 +15,7 @@ namespace ShopApp.Pages.Orders
   {
     private readonly Shopikai.Data.ShopikaiContext _context;
 
-    public CreateModel(Shopikai.Data.ShopikaiContext context)
+    public CreateModel(Shopikai.Data.ShopikaiContext context, ILogger<OrderPageModel> logger)
     {
       _context = context;
     }
@@ -30,22 +30,48 @@ namespace ShopApp.Pages.Orders
     public Order Order { get; set; } = default!;
 
     [BindProperty]
-    public int[] SelectedProductIds { get; set; }
+    public int[]? SelectedProductIds { get; set; }
 
     // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
     public async Task<IActionResult> OnPostAsync()
     {
-      if (SelectedProductIds.Length == 0)
+      if (SelectedProductIds == null)
       {
         PopulateProductsSL(_context);
         return Page();
       }
 
-      var emptyOrder = new Order();
+      var newOrder = new Order();
+      newOrder.Products = new List<Product>();
 
-      if (await TryUpdateModelAsync<Order>(emptyOrder, "order", o => o.ShipmentPostalCode, o => o.ShipmentAddressLabel, o => o.ShipmentAddress))
+      foreach (int selectedProductID in SelectedProductIds)
       {
-        _context.Orders.Add(Order);
+        var product = await _context.Products.FindAsync(selectedProductID);
+        if (product != null)
+        {
+          newOrder.Products.Add(product);
+          newOrder.Total += product.Price;
+        }
+      }
+
+      newOrder.NumberOfProducts = newOrder.Products.Count;
+      Random rnd = new Random();
+      newOrder.ShipmentTrackingID = rnd.Next().ToString("X");
+
+      if (await TryUpdateModelAsync<Order>(
+           newOrder,
+           "Order",
+           o => o.ShipmentPostalCode,
+           o => o.ShipmentAddressLabel,
+           o => o.ShipmentAddress,
+           o => o.ShippingMethod,
+           o => o.ShippingDate,
+           o => o.PaymentMethod,
+           o => o.Total,
+           o => o.NumberOfProducts,
+           o => o.Products))
+      {
+        _context.Orders.Add(newOrder);
         await _context.SaveChangesAsync();
         return RedirectToPage("./Index");
       }
