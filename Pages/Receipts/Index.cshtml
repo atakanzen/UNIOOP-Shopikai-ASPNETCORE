@@ -5,32 +5,43 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Receipt</h1>
 
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
+<div class="mb-3">
+    <a asp-page="/Index">Back to homepage</a>
+</div>
+
 <table class="table">
     <thead>
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Receipt[0].Order)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Receipt[0].Total)
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Receipt) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Order.Id)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.Receipt)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Order.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Total)
+                </td>
+                <td>
+                    <div class="hstack gap-3">
+                        <a asp-page="./Details" asp-route-id="@item.Id">Details</a>
+                        <div class="vr"></div>
+                        <a asp-page="./Delete" class="text-danger" asp-route-id="@item.Id">Delete</a>
+                    </div>
+
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

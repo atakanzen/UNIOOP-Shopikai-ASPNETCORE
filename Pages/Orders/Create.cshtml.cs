@@ -32,6 +32,9 @@ namespace ShopApp.Pages.Orders
     [BindProperty]
     public int[]? SelectedProductIds { get; set; }
 
+    [BindProperty, Display(Name = "Do you want a receipt?")]
+    public bool IsReceiptRequired { get; set; }
+
     // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
     public async Task<IActionResult> OnPostAsync()
     {
@@ -57,6 +60,14 @@ namespace ShopApp.Pages.Orders
       newOrder.NumberOfProducts = newOrder.Products.Count;
       Random rnd = new Random();
       newOrder.ShipmentTrackingID = rnd.Next().ToString("X");
+
+      if (IsReceiptRequired)
+      {
+        Receipt newReceipt = new Receipt();
+        newReceipt.Total = newOrder.Total;
+        newReceipt.Order = newOrder;
+        _context.Receipts.Add(newReceipt);
+      }
 
       if (await TryUpdateModelAsync<Order>(
            newOrder,
